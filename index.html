@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#14263b">
+  <title>기체의 성질 실험실</title>
+  <meta name="description" content="풍선, 삼각 플라스크, 주사기를 조작하며 기체의 세 가지 성질을 관찰하는 초등 과학 실험실">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./apparatus.js" defer></script>
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#lab-panel">실험으로 이동</a>
+  <header class="topbar">
+    <div class="frame top-inner">
+      <div class="wordmark"><span class="brand-icon" aria-hidden="true"><i></i><i></i><i></i></span> 생각하는 과학실</div>
+      <button class="fullscreen" type="button" id="fullscreen" aria-pressed="false"><span class="expand-icon" aria-hidden="true"></span><span id="fullscreen-label">수업 화면</span></button>
+    </div>
+  </header>
+
+  <main class="frame">
+    <header class="intro">
+      <h1>기체의 성질 실험실</h1>
+      <p>먼저 예측하고, 실험 도구를 조작해 결과를 확인해 보세요.</p>
+    </header>
+
+    <nav class="tabs" role="tablist" aria-label="기체의 성질 실험">
+      <button type="button" class="tab" role="tab" id="tab-mass" data-lab="mass" aria-controls="lab-panel" aria-selected="true"><span class="tab-number" aria-hidden="true">01</span><span><strong>공기 넣고 무게 재기</strong><small>풍선과 전자저울</small></span></button>
+      <button type="button" class="tab" role="tab" id="tab-vacuum" data-lab="vacuum" aria-controls="lab-panel" aria-selected="false" tabindex="-1"><span class="tab-number" aria-hidden="true">02</span><span><strong>공기 빼고 무게 재기</strong><small>진공 용기와 전자저울</small></span></button>
+      <button type="button" class="tab" role="tab" id="tab-heat" data-lab="heat" aria-controls="lab-panel" aria-selected="false" tabindex="-1"><span class="tab-number" aria-hidden="true">03</span><span><strong>온도와 부피</strong><small>삼각 플라스크와 풍선</small></span></button>
+      <button type="button" class="tab" role="tab" id="tab-pressure" data-lab="pressure" aria-controls="lab-panel" aria-selected="false" tabindex="-1"><span class="tab-number" aria-hidden="true">04</span><span><strong>압력과 부피</strong><small>끝을 막은 주사기</small></span></button>
+    </nav>
+
+    <section id="lab-panel" class="lab" role="tabpanel" aria-labelledby="tab-mass" tabindex="0">
+      <div class="lab-heading">
+        <div><h2 id="lab-title"></h2><p id="lab-description"></p></div>
+        <button type="button" class="reset" id="reset"><span aria-hidden="true">↺</span> 다시 시작</button>
+      </div>
+      <div class="workbench">
+        <div class="experiment">
+          <div class="scene" id="scene">
+            <div class="scene-status"><span class="status-dot"></span><span id="scene-status"></span></div>
+            <div class="apparatus-view">
+              <canvas id="apparatus" width="640" height="350" aria-hidden="true"></canvas>
+              <div id="flask-target" class="flask-target" aria-hidden="true" hidden></div>
+              <div id="plunger-target" class="plunger-target" aria-hidden="true" hidden></div>
+            </div>
+            <p class="scene-caption" id="scene-caption"></p>
+          </div>
+          <div id="metrics" class="metrics" aria-label="현재 실험 조건과 측정값"></div>
+        </div>
+
+        <div class="controls">
+          <section aria-labelledby="predict-title">
+            <h3 id="predict-title"><span class="step">1</span> 예측하기</h3>
+            <p id="question" class="question"></p>
+            <div class="choices" id="choices" role="group" aria-labelledby="question"></div>
+          </section>
+          <section aria-labelledby="control-title">
+            <h3 id="control-title"><span class="step">2</span> 실험하기</h3>
+            <div id="actions"></div>
+          </section>
+          <section aria-labelledby="record-title">
+            <h3 id="record-title"><span class="step">3</span> 관찰 기록하기</h3>
+            <button type="button" class="primary record" id="record">현재 결과 기록</button>
+            <p class="helper" id="control-hint"></p>
+          </section>
+        </div>
+      </div>
+
+      <section class="results" aria-labelledby="results-title">
+        <div class="results-heading">
+          <h3 id="results-title">관찰 기록 <span id="record-count"></span></h3>
+          <button type="button" class="outline" id="explain" aria-expanded="false" aria-controls="explanation">결과 해석 보기</button>
+        </div>
+        <p id="no-records" class="empty">아직 기록이 없어요. 실험한 뒤 현재 결과를 기록해 보세요.</p>
+        <table id="record-table" hidden>
+          <thead><tr><th scope="col" id="condition-column"></th><th scope="col" id="value-column"></th></tr></thead>
+          <tbody id="record-rows"></tbody>
+        </table>
+        <p id="comparison" class="comparison" hidden></p>
+        <div id="explanation" class="explanation" hidden>
+          <p id="prediction-feedback"></p>
+          <p id="concept"></p>
+          <p id="model-note"></p>
+        </div>
+      </section>
+      <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+    </section>
+    <noscript><p class="no-script">실험을 실행하려면 브라우저에서 자바스크립트를 켜 주세요.</p></noscript>
+  </main>
+</body>
+</html>
